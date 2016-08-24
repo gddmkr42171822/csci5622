@@ -38,6 +38,11 @@ class TestKnn(unittest.TestCase):
         return_value = self.knn[3].majority(item_indices)
         self.assertEqual(+1, return_value)
 
+    def testMajorityMedian(self):
+        item_indices = [1, 8]
+        return_value = self.knn[2].majority(item_indices)
+        self.assertEqual(0, return_value)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -82,7 +82,7 @@ class Knearest:
         # Return the median of the majority of the labels if there is.
         # Otherwise just return the single majority label.
         if len(most_common_label) > 1:
-            return median(np.array(most_common_label))
+            return median(numpy.array(most_common_label))
         else:
             return most_common_label[0]
 
