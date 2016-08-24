@@ -56,7 +56,7 @@ class Knearest:
 
         :param item_indices: The indices of the k nearest neighbors
         """
-        assert len(item_indices) == self._k, "Did not get k inputs"
+        assert len(item_indices) == self._k, "Did not get k inputs"            
 
         # Finish this function to return the most common y label for
         # the given indices.  The current return value is a placeholder 
@@ -64,7 +64,27 @@ class Knearest:
         #
         # http://docs.scipy.org/doc/numpy/reference/generated/numpy.median.html
 
-        return self._y[item_indices[0]]
+        # Find the counts for each of labels found with the indices.
+        label_counts = {}
+        for i in item_indices:
+            if self._y[i] in label_counts:
+                label_counts[self._y[i]] += 1
+            else:
+                label_counts[self._y[i]] = 1
+
+        # Find the most common label(s).
+        most_common_label = []
+        for key, value in label_counts.iteritems():
+            if value == max(label_counts.values()):
+                most_common_label.append(key)
+
+        # Check if there is more than one majority labels.
+        # Return the median of the majority of the labels if there is.
+        # Otherwise just return the single majority label.
+        if len(most_common_label) > 1:
+            return median(np.array(most_common_label))
+        else:
+            return most_common_label[0]
 
     def classify(self, example):
         """
