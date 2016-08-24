@@ -6,7 +6,6 @@ import numpy
 from numpy import median
 from sklearn.neighbors import BallTree
 
-import math
 
 class Numbers:
     """
@@ -127,6 +126,15 @@ class Knearest:
         d = defaultdict(dict)
         data_index = 0
         for xx, yy in zip(test_x, test_y):
+            ii = yy
+            jj = self.classify(xx)
+            if ii in d:
+                if jj in d[ii]:
+                    d[ii][jj] += 1
+                else:
+                    d[ii][jj] = 1
+            else:
+                d[ii] = {jj: 1}
             data_index += 1
             if data_index % 100 == 0:
                 print("%i/%i for confusion matrix" % (data_index, len(test_x)))

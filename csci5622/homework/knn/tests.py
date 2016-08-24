@@ -47,7 +47,7 @@ class TestKnn(unittest.TestCase):
 
     @mock.patch.object(Knearest, 'majority')
     def testClassifyMockMajorityWithOneNN(self, mock_majority):
-        query = [2,0]
+        query = [2, 0]
         x = array([[2, 0], [4,1]])
         y = array([+1, -1])
         knn = Knearest(x, y, 1)
@@ -56,8 +56,8 @@ class TestKnn(unittest.TestCase):
 
     @mock.patch.object(Knearest, 'majority')
     def testClassifyMockMajorityWithTwoNN(self, mock_majority):
-        query = [2,0]
-        x = array([[2, 0], [4,1], [2, 1]])
+        query = [2, 0]
+        x = array([[2, 0], [4, 1], [2, 1]])
         y = array([+1, +1, -1])
         knn = Knearest(x, y, 2)
         knn.classify(query)
@@ -65,13 +65,35 @@ class TestKnn(unittest.TestCase):
             array([0, 2]), mock_majority.call_args[0][0])
 
     def testClassifyWithtwoNN(self):
-        query = [2,0]
-        x = array([[2, 0], [4,1], [2, 1]])
+        query = [2, 0]
+        x = array([[2, 0], [4, 1], [2, 1]])
         y = array([+1, +1, -1])
         knn = Knearest(x, y, 2)
         return_value = knn.classify(query)
         self.assertEqual(0, return_value)
 
+    def testConfusionMatrixNoIncorrectLabels(self):
+        expected_d = defaultdict(dict)
+        expected_d[-1] = {-1: +1}
+        expected_d[+1] = {+1: +1}
+        test_x = array([[1, 1], [4, 1]])
+        test_y = array([-1, +1])
+        x = array([[2, 0], [4, 1], [2, 1]])
+        y = array([+1, +1, -1])
+        knn = Knearest(x, y, 1)
+        actual_d = knn.confusion_matrix(test_x, test_y)
+        self.assertEqual(expected_d, actual_d)
+
+    def testConfustionMatrixWithIncorrectLabels(self):
+        expected_d = defaultdict(dict)
+        expected_d[+1] = {+1: 1, -1: 1}
+        test_x = array([[1, 1], [4, 1]])
+        test_y = array([+1, +1])
+        x = array([[2, 0], [4, 1], [2, 1]])
+        y = array([+1, +1, -1])
+        knn = Knearest(x, y, 1)
+        actual_d = knn.confusion_matrix(test_x, test_y)
+        self.assertEqual(expected_d, actual_d)
 
 if __name__ == '__main__':
     unittest.main()
