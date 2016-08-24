@@ -100,9 +100,10 @@ class Knearest:
         # Again, the current return value is a placeholder 
         # and definitely needs to be changed.
 
-        # Find the k closest neighbors and create a list of their indices
-        # in the label training array (self._y).  kdtree.query an array 
-        # of arrays.
+        # Find the k nearest neighbors and create a list of their indices
+        # in the label training array (self._y).  kdtree.query returns an 
+        # array of arrays so you have to get the first array of that array
+        # for the indices list.
         _, nearest_neighbors = self._kdtree.query(
             numpy.array(example).reshape(1, -1), k=self._k)
 
