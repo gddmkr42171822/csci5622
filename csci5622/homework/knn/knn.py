@@ -6,6 +6,8 @@ import numpy
 from numpy import median
 from sklearn.neighbors import BallTree
 
+import math
+
 class Numbers:
     """
     Class to store MNIST data
@@ -97,10 +99,15 @@ class Knearest:
         # Finish this function to find the k closest points, query the
         # majority function, and return the predicted label.
         # Again, the current return value is a placeholder 
-        # and definitely needs to be changed. 
+        # and definitely needs to be changed.
 
-        return self.majority(list(random.randrange(len(self._y)) \
-                                  for x in xrange(self._k)))
+        # Find the k closest neighbors and create a list of their indices
+        # in the label training array (self._y).  kdtree.query an array 
+        # of arrays.
+        _, nearest_neighbors = self._kdtree.query(
+            numpy.array(example).reshape(1, -1), k=self._k)
+
+        return self.majority(nearest_neighbors[0])
 
     def confusion_matrix(self, test_x, test_y):
         """
