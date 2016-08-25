@@ -69,8 +69,8 @@ class TestKnn(unittest.TestCase):
         x = array([[2, 0], [4, 1], [2, 1]])
         y = array([+1, +1, -1])
         knn = Knearest(x, y, 2)
-        return_value = knn.classify(query)
-        self.assertEqual(0, return_value)
+        actual_label = knn.classify(query)
+        self.assertEqual(0, actual_label)
 
     def testConfusionMatrixNoIncorrectLabels(self):
         expected_d = defaultdict(dict)
