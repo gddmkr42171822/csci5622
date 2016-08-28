@@ -1,3 +1,8 @@
+"""
+Robert Werthman
+CSCI 5622
+Homework 1: KNN
+"""
 import argparse
 from collections import Counter, defaultdict
 
@@ -79,9 +84,9 @@ class Knearest:
             if value == max(label_counts.values()):
                 most_common_label.append(key)
 
-        # Check if there is more than one majority labels.
+        # Check if there is more than one majority label.
         # Return the median of the majority of the labels if there is.
-        # Otherwise just return the single majority label.
+        # Otherwise just return the one majority label.
         if len(most_common_label) > 1:
             return median(numpy.array(most_common_label))
         else:
@@ -101,8 +106,9 @@ class Knearest:
         # and definitely needs to be changed.
 
         # Find the k nearest neighbors and create a list of their indices
-        # in the label training array (self._y).  kdtree.query returns an 
-        # array of arrays so you have to get the first array of that array
+        # to index into the label training array (self._y).  
+        # kdtree.query returns an array of arrays so you have to 
+        # get the first array of that array
         # for the indices list.
         _, nearest_neighbors = self._kdtree.query(
             numpy.array(example).reshape(1, -1), k=self._k)
