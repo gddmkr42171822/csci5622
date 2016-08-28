@@ -9,7 +9,7 @@
 |:------------:| ----------------| ------------|-------------------------------------|----------|-----------|
 | 08.22        | 1				 |             | ML Intro							 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson01/1a.pdf)		|			| 
 | 08.24        | 2.1-2.5, 3      |             | Naive Bayes 						 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson02/lesson02.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5Lw6kCrLHamfO1C6aO6cYn9e)/[nbk](http://nbviewer.jupyter.org/url/grandmaster.colorado.edu/~cketelsen/files/csci5622/notebooks/lesson02/Lesson02NBK_Answers.ipynb?flush_cache=true)		|			| 
-| 08.29        | 8.1-8.2, 8.6    | [Elkan](https://piazza.com/class_profile/get_resource/is29q3nxion50u/is2whxendxg6pt) | Logistic Regr., Perceptron			 |			|			| 
+| 08.29        | 8.1-8.2, 8.6    | [Elkan](https://piazza.com/class_profile/get_resource/is29q3nxion50u/is2whxendxg6pt) | Logistic Regression			 |			|			| 
 |              |              | [Ng & Jordan](https://piazza.com/class_profile/get_resource/is29q3nxion50u/is2wmscpcxh184) | 		 |			|			| 
 | 08.31        | 8.3, 8.5        | 			   | Stochastic Gradient Ascent 		 |			|			| 
 | 09.02        | 		         | 			   | 									 |			| [KNN](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/knn/assign.md)		| 
