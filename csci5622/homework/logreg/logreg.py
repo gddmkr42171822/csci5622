@@ -100,6 +100,24 @@ class LogReg:
         
         # TODO: Implement updates in this function
 
+        ex = train_example
+        log_likelihood_gradient = (ex.y - sigmoid(self.w.dot(ex.x)))*ex.x
+        self.w = self.w + self.eta(iteration)*log_likelihood_gradient
+        # Lazy Sparse Regularization
+        shrinkage_factor = 1 - 2*self.eta(iteration)*self.lam
+        for feature_index, feature_count in enumerate(ex.x):
+            # Don't regularize non-zero features and the bias
+            if feature_count > 0.0 and feature_index != 0:
+                last_iteration_feature_was_updated = -1
+                if feature_index in self.last_update:
+                    last_iteration_feature_was_updated = self.last_update[
+                    feature_index]
+                # Raise shrinkage factor to the power of the number 
+                # of iterations since the feature was last updated
+                shrinkage_factor = shrinkage_factor**(
+                    iteration - last_iteration_feature_was_updated)
+                self.w[feature_index] = self.w[feature_index]*shrinkage_factor
+                self.last_update[feature_index] = iteration
         return self.w
 
 def read_dataset(positive, negative, vocab, test_proportion=0.1):
