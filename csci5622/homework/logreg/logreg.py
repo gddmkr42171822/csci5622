@@ -103,12 +103,20 @@ class LogReg:
         ex = train_example
         log_likelihood_gradient = (ex.y - sigmoid(self.w.dot(ex.x)))*ex.x
         self.w = self.w + self.eta(iteration)*log_likelihood_gradient
-        # Lazy Sparse Regularization
+        self.lazy_sparse_regularization(ex, iteration)
+        
+        return self.w
+
+    def lazy_sparse_regularization(self, ex, iteration):
+        # Do Lazy Sparse Regularization on the weight vector
         shrinkage_factor = 1 - 2*self.eta(iteration)*self.lam
         for feature_index, feature_count in enumerate(ex.x):
             # Don't regularize non-zero features and the bias
             if feature_count > 0.0 and feature_index != 0:
+                # Handle the case when the weights haven't
+                # been update since first iteration (iteration = 0)
                 last_iteration_feature_was_updated = -1
+                # See if we have update the weights before
                 if feature_index in self.last_update:
                     last_iteration_feature_was_updated = self.last_update[
                     feature_index]
@@ -118,7 +126,6 @@ class LogReg:
                     iteration - last_iteration_feature_was_updated)
                 self.w[feature_index] = self.w[feature_index]*shrinkage_factor
                 self.last_update[feature_index] = iteration
-        return self.w
 
 def read_dataset(positive, negative, vocab, test_proportion=0.1):
     """
