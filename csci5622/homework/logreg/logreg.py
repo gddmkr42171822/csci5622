@@ -1,3 +1,8 @@
+'''
+Robert Werthman
+CSCI 5622
+Homework 2: Logistic Regression
+'''
 import random
 import argparse
 
@@ -108,7 +113,13 @@ class LogReg:
         return self.w
 
     def lazy_sparse_regularization(self, ex, iteration):
-        # Do Lazy Sparse Regularization on the weight vector
+        """Do Lazy Sparse Regularization on the weight vector
+
+        Args:
+            ex: An Example instance from the training set.
+            iteration: The index of the example we are on.
+
+        """
         shrinkage_factor = 1 - 2*self.eta(iteration)*self.lam
         for feature_index, feature_count in enumerate(ex.x):
             # Don't regularize non-zero features and the bias
