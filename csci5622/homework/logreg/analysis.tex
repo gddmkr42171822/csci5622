@@ -14,7 +14,7 @@ Homework 1: Logistic Regression\\
 \item \textbf{How did the learning rate affect the convergence of your SGA implementation?}\\
 The goal of the SGA implementation is to maximize the log-likelihood function.  When we talk about convergence we are talking about reaching the maximum of the log-likelihood function.  The graph below was produced with different constant learning rates $\eta$ with 10 passes through the training set for each learning rate.  As can be seen in the graph, the smaller the learning rate $\eta$, the slower the log-likelihood function value converges to its maximum.  The larger learning rates don't look like they converge to the maximum at all.\\
 \begin{center}
-\includegraphics[scale=.3]{q1.png}
+\includegraphics[scale=.4]{q1.png}
 \end{center}
 \item \textbf{What was your stopping criterion and how many passes over the data did you need to complete before stopping?}\\
 If I didn't see the log-likelihood function value increasing or the value was jumping around and never converging to the maximum value, then I would stop the logistic regression.  This depended on the value of $\eta$.  As was talked about in question 1, some values of $\eta$ don't seem to converge or converge very slowly.  This requires more or fewer passes through the data to maximize the log-likelihood function.  When testing, I used 10 passes through the data, but it looked like for some values of $\eta$, more or fewer passes would've gotten the same or better value for the log-likelihood function.  
