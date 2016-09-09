@@ -1,5 +1,6 @@
 from logreg import *
 import matplotlib.pyplot as plt
+import numpy
 
 def question1():
   etas = {
@@ -44,9 +45,41 @@ def question1():
   plt.xlabel('Thousand iteration')
   plt.savefig('q1.png')
 
+def question3():
+  passes = 10
+  eta = .1
+  train, test, vocab = read_dataset('../data/hockey_baseball/positive',
+    '../data/hockey_baseball/negative', '../data/hockey_baseball/vocab')
+
+  # Initialize model
+  lr = LogReg(len(vocab), 0.0, lambda x: eta)
+
+  # Iterations
+  iteration = 0
+  for pp in xrange(passes):
+    random.shuffle(train)
+    for ex in train:
+      lr.sg_update(ex, iteration)
+      iteration += 1
+
+  lr.w = lr.w.tolist()
+  # Get the top 10 words with the highest weight
+  for _ in range(0, 10):
+    highest_weight_value = max(lr.w)
+    item_index = lr.w.index(highest_weight_value)
+    print vocab[item_index], highest_weight_value, item_index
+    lr.w.remove(highest_weight_value)
+
+  # Get the top 10 words with the lowest weight
+  for _ in range(0, 10):
+    lowest_weight_value = min(lr.w)
+    item_index = lr.w.index(lowest_weight_value)
+    print vocab[item_index], lowest_weight_value, item_index
+    lr.w.remove(lowest_weight_value)
 
 def main():
-  question1()
+  # question1()
+  question3()
 
 if __name__ == '__main__':
   main()
