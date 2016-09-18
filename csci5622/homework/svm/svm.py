@@ -39,28 +39,13 @@ def find_support(x, y, w, b, tolerance=0.001):
     support = set()
     # TODO: IMPLEMENT THIS FUNCTION
 
-    positive_support_vector_margin = 1.0
-    negative_support_vector_margin = -1.0
-    # Use the decision boundary function (w^t*x_i+b) to find the number
-    # of margins each training sample is from the decision boundary.
+    # Support vectors are given by the equation y_i(w^t*x_i+b) = 1.0
+    # This means a training sample (x_i) lies on its respective support
+    # vector boundary if y_i(w^t*x_i+b) = 1.0.
     for i, training_sample in enumerate(x):
-      sample_margin = w.dot(training_sample) + b
-      # If the training sample has a positive label (1) the support vector
-      # boundary is the equation w^t*x_i+b = margin. 
-      # If the margin = 1, the the training
-      # sample would be on the positive support vector boundary and be a
-      # support vector.
-      if (y[i] == 1):
-        if abs(sample_margin - positive_support_vector_margin) <= tolerance:
-          support.add(i)
-      # If the training sample has a negative label (-1) the support vector 
-      # margin = -1. If the training sample produces that margin when 
-      # pugged into the decision boundary function, the sample
-      # would be on the negative support vector boundary and be a support 
-      # vector for the negative class.
-      elif y[i] == -1:
-        if abs(sample_margin - negative_support_vector_margin) <= tolerance:
-          support.add(i)
+      sample_margin = y[i]*(w.dot(training_sample) + b)
+      if abs(sample_margin - 1.0) <= tolerance:
+        support.add(i)
     return support
 
 
@@ -73,6 +58,15 @@ def find_slack(x, y, w, b):
 
     slack = set()
     # TODO: IMPLEMENT THIS FUNCTION
+
+    # There will be slack if the training sample is on the wrong side of its
+    # correct support vector boundary given by its label.  The training sample
+    # will also have a margin < 1.  This is because the vector support 
+    # boundary is now define by the quation y_i(s^t*x+b) = 1 - slack.
+    for i, training_sample in enumerate(x):
+      sample_margin = y[i]*(w.dot(training_sample) + b)
+      if sample_margin < 1:
+        slack.add(i)
     return slack
 
 
