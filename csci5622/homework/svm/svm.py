@@ -23,11 +23,14 @@ def weight_vector(x, y, alpha):
     """
     Given a vector of alphas, compute the primal weight vector w. 
     """
-
     w = np.zeros(len(x[0]))
     # TODO: IMPLEMENT THIS FUNCTION
+    # Go through each training example and update each part of the 
+    # weight vector with the alpha, label (y), and respect feature (x)
+    for i, _ in enumerate(x):
+      for j in range(0, len(w)):
+        w[j] += alpha[i]*y[i]*x[i][j]
     return w
-
 
 
 def find_support(x, y, w, b, tolerance=0.001):
