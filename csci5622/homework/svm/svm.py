@@ -1,3 +1,9 @@
+"""
+Robert Werthman
+CSCI 5622
+Homework 3: SVM
+"""
+
 import numpy as np 
 
 kINSP = np.array([(1, 8, +1),
@@ -25,8 +31,9 @@ def weight_vector(x, y, alpha):
     """
     w = np.zeros(len(x[0]))
     # TODO: IMPLEMENT THIS FUNCTION
+    
     # Go through each training example and update each part of the 
-    # weight vector with the alpha, label (y), and respect feature (x)
+    # weight vector with the alpha, label (y), and respective feature (x_i)
     for i, _ in enumerate(x):
       for j in range(0, len(w)):
         w[j] += alpha[i]*y[i]*x[i][j]
