@@ -3,6 +3,8 @@ import numpy as np
 
 from sklearn.svm import SVC
 from sklearn import cross_validation
+import matplotlib.pyplot as plt
+from distutils.command.build_scripts import first_line_re
 
 class ThreesAndEights:
   """
@@ -39,42 +41,57 @@ class ThreesAndEights:
   def cross_validate(self, C=None, kernel=None):
     # Initialize the support vector machine classifier
     svm = None
-    if C and kernel:
+    if C is not None and kernel is not None:
       svm = SVC(C=C, kernel=kernel)
     else:
       svm = SVC()
+    print svm.get_params()
     
     # Combines all of the samples and labels from the training, test, 
     # and validation sets
     self.samples = self.x_train
     self.labels = self.y_train
     
-    self.samples = np.vstack((self.samples, self.x_test))
-    self.samples = np.vstack((self.samples, self.x_valid))
-    
-    self.labels = np.append(self.labels, self.y_test)
-    self.labels = np.append(self.labels, self.y_valid)
+#     self.samples = np.vstack((self.samples, self.x_test))
+#     self.samples = np.vstack((self.samples, self.x_valid))
+#     
+#     self.labels = np.append(self.labels, self.y_test)
+#     self.labels = np.append(self.labels, self.y_valid)
 
     # Do cross validation and look at the mean of the scores of the each
     # of the data splits as the accuracy
+    folds = 3
     scores = cross_validation.cross_val_score(
-      svm, self.samples, self.labels, cv=5, n_jobs=-1)
-    print scores.mean()
+      svm, self.samples, self.labels, cv=folds, n_jobs=-1)
+    return scores.mean()
 
-  def predict(self, C=None, kernel=None, sample=0):
+  def predict(self, sample, C=None, kernel=None):
     svm = None
-    if C and kernel:
+    if C is not None and kernel is not None:
       svm = SVC(C=C, kernel=kernel)
     else:
       svm = SVC()
-    
+    print svm.get_params()
     svm.fit(self.x_train, self.y_train)
     
-    print 'Prediction: %d\n' % svm.predict(self.x_valid[sample].reshape(1,-1))
+#     print 'Prediction: %d\n' % svm.predict(sample.reshape(1,-1))
+    return svm
+    
+  def plot_accuracy(self):
+    print self.accuracy
+    for kernel in self.kernels:
+      plt.plot(self.C, self.accuracy[kernel], label=kernel)
+    
+    
+    plt.title(
+      'Accuracy of svm prediction with different values of C for the kernels: %s' % (', '.join(self.kernels)))
+    plt.xlabel('Values of C')
+    plt.ylabel('Accuracy (%)')
+    plt.legend()
+    plt.show()
+    plt.savefig('performance_evalation.png')
 
 def mnist_digit_show(flatimage, outname=None):
-
-  import matplotlib.pyplot as plt
   
   image = np.reshape(flatimage, (-1,28))
   
@@ -85,7 +102,52 @@ def mnist_digit_show(flatimage, outname=None):
     plt.savefig(outname)
   else:
     plt.show()
+
   
+def question1(data):
+  data.C = [.1, 1, 10, 100, 1000]
+  data.kernels = ['linear', 'rbf']
+  data.accuracy = {}
+   
+  for kernel in data.kernels:
+    for C in data.C:
+      accuracy = data.cross_validate(C=C, kernel=kernel)
+      if kernel in data.accuracy:
+        data.accuracy[kernel].append(accuracy)
+      else:
+        data.accuracy[kernel] = [accuracy]
+      print 'c %d, kernel %s, accuracy %f' % (
+        C, kernel, accuracy)
+   
+  data.plot_accuracy()
+
+
+def question2(data):
+  sample = data.x_valid[0]
+  svm = data.predict(sample=sample, C=1, kernel='linear')
+
+  # Get support vectors for the first class and second class
+  first_class_support_vectors = svm.support_vectors_[0:3]
+  second_class_support_vectors = svm.support_vectors_[
+    svm.n_support_[0]:svm.n_support_[0]+3]
+  
+  i = 0
+  for sv in first_class_support_vectors:
+    if i < 3:
+      mnist_digit_show(sv, '3_sv%d.png' % i)
+    else:
+      break
+    i += 1
+
+  i = 0
+  for sv in second_class_support_vectors:
+    if i < 3:
+      mnist_digit_show(sv, '8_sv%d.png' % i)
+    else:
+      break
+    i += 1
+
+
 if __name__ == "__main__":
   
   parser = argparse.ArgumentParser(description='SVM classifier options')
@@ -95,7 +157,6 @@ if __name__ == "__main__":
   
   data = ThreesAndEights("../data/mnist.pkl.gz")
 
-  
   """
   data.x_test is a matrix where one row and all of its columns 
   represent a number like 3 or 8.
@@ -107,26 +168,5 @@ if __name__ == "__main__":
     example: data.y_test[0] is the label for data.x_test[0,:]
              data.y_test[1] is the label for data.x_test[1,:]
   """
-  
-#   data.cross_validate()
-
-  # -----------------------------------
-  # Plotting Examples 
-  # -----------------------------------
-  
-  # Display in on screen
-#   sample = 0
-#   data.predict(sample=sample)
-#   mnist_digit_show(data.x_valid[sample])  
-  
-  # Plot image to file 
-  # 	mnist_digit_show(data.x_train[1,:], "mnistfig.png")
-
-
-
-
-
-
-
-
-
+  question1(data)
+#   question2(data)
