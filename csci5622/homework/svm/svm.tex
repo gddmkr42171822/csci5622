@@ -1,0 +1,59 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath,listings,graphicx,caption,subfig,float,subfig}
+\usepackage[margin=0.5in]{geometry}
+
+\begin{document}
+\noindent
+Robert Werthman\\
+CSCI 5622\\
+Homework 3: SVM\\
+
+\begin{enumerate}
+  \item\textbf{Different values of C and two kernels}\\
+  I used 5 different values of regularization parameter C: 0.1, 1, 10, 100,
+  1000.  I used two different kernels: linear, radial basis function.  For each
+  kernel I used all five values of C. I determined
+  the accuracy for each value of C and kernel by using 3-fold cross validation
+  with just the original training set.  The accuracy for each value of C and
+  kernel is the mean of the accuracies for all of the cross validation folds.\\
+  \\ 
+  As can be seen in the figure below, the radial basis function kernel did
+  better than the linear kernel for all values of C.  Increasing values of C,
+  increased the accuracy of the radial basis function kernel while decreasing
+  the accuracy of the linear kernel. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{performance_evaluation.png}
+    \end{figure}
+  \item \textbf{Examples of support vectors for each class}\\
+  Example of three support vectors for the 3's class:
+    \begin{figure}[H]
+    \centering
+      \subfloat{
+      \includegraphics[scale=.2]{3_sv0.png}
+      }
+      \subfloat{
+      \includegraphics[scale=.2]{3_sv1.png}
+      }
+      \subfloat{
+      \includegraphics[scale=.2]{3_sv2.png}
+      }
+     \caption{3's support vectors}
+    \end{figure}
+    Example of three support vectors for the 8's class:
+    \begin{figure}[H]
+    \centering
+      \subfloat{
+      \includegraphics[scale=.2]{8_sv0.png}
+      }
+      \subfloat{
+      \includegraphics[scale=.2]{8_sv1.png}
+      }
+      \subfloat{
+      \includegraphics[scale=.2]{8_sv2.png}
+      }
+     \caption{8's support vectors}
+    \end{figure}
+\end{enumerate}
+
+\end{document}

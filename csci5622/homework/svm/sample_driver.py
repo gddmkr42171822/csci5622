@@ -88,7 +88,7 @@ class ThreesAndEights:
     plt.xlabel('Values of C')
     plt.ylabel('Accuracy (%)')
     plt.legend()
-    plt.show()
+#     plt.show()
     plt.savefig('performance_evalation.png')
 
 def mnist_digit_show(flatimage, outname=None):
