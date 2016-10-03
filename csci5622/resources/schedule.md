@@ -19,15 +19,14 @@
 | 09.12        | 3.4 of [Burges](http://research.microsoft.com/en-us/um/people/cburges/papers/svmtutorial.pdf)		         | 		[Platt](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/smo-book.pdf)	   | Soft-Margin SVMs | [slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson06/lesson06.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LxxApfk0Qwzw2Ji_XRxQY0c)			|			| 
 | 09.14        | 4 of [Burges](http://research.microsoft.com/en-us/um/people/cburges/papers/svmtutorial.pdf)		         | 			   | The Kernel Trick |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson07/lesson07.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LxO8xo2z8pFtpGXeFlaGOTp)		|			| 
 | 09.16        | 		         | 			   | 									 |			| [LogReg](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/logreg/assign.md)	| 
-| 09.19        |        		 | 			   | Decision Trees						 |			|			| 
-| 09.21        | 16.1-16.4       | 			   | Boosting 							 |			|			| 
+| 09.19        |        		 | 			   | Decision Trees						 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson08/lesson08.pdf)		| 			| 
+| 09.21        | 16.1-16.4       | 			   | Boosting 							 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson09/lesson09.pdf)		|			| 
 | 09.23        | 		         | 			   | 									 |			| [SVM](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/svm/assign.md) 		| 
-| 09.26        | 			     | 			   | Regression 			      		 |			|			| 
-| 09.28        | 			     | 			   | Regularization						 |			|			| 
-| 09.30        | 		         | 			   | 									 |			| Boosting 	| 
-| 10.03        | 			     | 			   | Learning Theory Part 1			     |			|			| 
+| 09.26        | 7.1-7.3			     | 			   | Regression 			      		 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson10/lesson10.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LwR6IVtKAqSlzy4PjscOG1E)		|			| 
+| 09.28        | 7.4-7.5			     | 	[James 6.2](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Sixth%20Printing.pdf)		   | Regularization						 |[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson11/lesson11.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5Lwll_CxrMufMPNv6hH7g1Eg)		|			| 
+| 10.03        | [Mohri 2](https://moodle.cs.colorado.edu/pluginfile.php/2076/mod_resource/content/1/mohri_learn.pdf)			     | 			   | Learning Theory Part 1			     | [slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson12/lesson12.pdf)			|			| 
 | 10.05        | 			     | 			   | Learning Theory Part 2				 |			|			| 
-| 10.07        | 			     | 			   | 	       						     |			| 			| 
+| 10.07        | 			     | 			   | 	       						     |			| [Boosting](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/boosting/assign.md)	| 
 | 10.10        | 			     | 			   | 									 |			|			| 
 | 10.12        | 			     | 			   | 									 |			|			| 
 | 10.14        | 			     | 			   | 									 |			| Learnability		| 
