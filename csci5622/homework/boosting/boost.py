@@ -4,6 +4,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import Perceptron
 from sklearn.base import clone 
 import matplotlib.pyplot as plt
+import math
 
 np.random.seed(1234)
 
@@ -75,14 +76,22 @@ class AdaBoost:
             y_train (ndarray): [n_samples] ndarray of data 
         """
 
-        # TODO 
+        # Initialize the weights so that they act like a probability
+        # distribution.
+        w = np.full(len(y_train), 1.0/len(y_train))
 
-        # Hint: You can create and train a new instantiation 
-        # of your sklearn weak learner as follows 
-
-        w = np.ones(len(y_train))
-        h = clone(self.base)
-        h.fit(X_train, y_train, sample_weight=w)
+        for k in range(self.n_learners):
+            h = clone(self.base)
+            h.fit(X_train, y_train, sample_weight=w)
+            err = 0 
+            for i in range(len(w)):
+                err += w[i]*(y_train[i] != h.predict(X_train[i]))
+            err = err/np.sum(w)
+            self.alpha[k] = .5*math.log((1 - err)/err)
+            for i in range(len(w)):
+                w[i] = w[i]*math.exp(
+                    -self.alpha[k]*y[i]*(y_train[i] != h.predict(X_train[i])))
+            self.learners.append(h)
             
             
     def predict(self, X):
