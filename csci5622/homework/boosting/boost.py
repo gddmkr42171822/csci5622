@@ -5,6 +5,7 @@ from sklearn.linear_model import Perceptron
 from sklearn.base import clone 
 import matplotlib.pyplot as plt
 import math
+import sys
 
 np.random.seed(1234)
 
@@ -96,8 +97,11 @@ class AdaBoost:
             # Compute how good the weak learner is at prediction (weight)
             # Learners that make accurate predictions have higher weight
             # Small error = high alpha
-            if err == 0: err = 1
-            self.alpha[k] = .5*math.log((1 - err)/err)
+            try:
+                self.alpha[k] = .5*math.log((1 - err)/err)
+            except (ValueError, ZeroDivisionError):
+                print 'There was an error calculating the alpha.'
+                sys.exit(1)
 
             # Re-compute the weights of the samples
             # Misclassified sample weight goes up 
@@ -216,16 +220,19 @@ if __name__ == "__main__":
     clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
     clf.fit(data.x_train[:args.limit], data.y_train[:args.limit])
 
-    samples = data.x_valid[:5]
-    samples_class = data.y_valid[:5]
+    X = data.x_valid[:5]
+    y = data.y_valid[:5]
 
     # A prediction of 1 means the digit is a 9
     # A prediction of -1 means the digit is a 4
-    predictions = clf.predict(sample)
+    predictions = clf.predict(X)
     for i in range(predictions.shape[0]):
-        if predictions[i] == sample_class[i]:
-            print 'prediction is correct', sample_class[i]
-            mnist_digit_show(sample[i])
+        if predictions[i] == y[i]:
+            print 'prediction is correct', y[i]
+        else:
+            print 'prediction is incorrect', y[i]
+            # mnist_digit_show(sample[i])
+    print 'Accuracy', clf.score(X, y)
 
 
 
