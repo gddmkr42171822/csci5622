@@ -82,15 +82,29 @@ class AdaBoost:
 
         for k in range(self.n_learners):
             h = clone(self.base)
+
+            # Fit a weak learner to the training data
             h.fit(X_train, y_train, sample_weight=w)
+
+            # Compute the weighted error of the weak learner 
             err = 0 
             for i in range(len(w)):
-                err += w[i]*(y_train[i] != h.predict(X_train[i]))
+                err += w[i]*(y_train[i] != h.predict(
+                    X_train[i].reshape(1, -1)))
             err = err/np.sum(w)
+
+            # Compute how good the weak learner is at prediction (weight)
+            # Learners that make accurate predictions have higher weight
+            # Small error = high alpha
             self.alpha[k] = .5*math.log((1 - err)/err)
+
+            # Re-compute the weights of the samples
+            # Misclassified sample weight goes up 
             for i in range(len(w)):
                 w[i] = w[i]*math.exp(
-                    -self.alpha[k]*y[i]*(y_train[i] != h.predict(X_train[i])))
+                    -self.alpha[k]*y_train[i]*h.predict(
+                        X_train[i].reshape(1, -1)))
+
             self.learners.append(h)
             
             
@@ -105,9 +119,24 @@ class AdaBoost:
             [n_samples] ndarray of predicted labels {-1,1}
         """
 
-        # TODO 
+        # For each sample sum up the prediction*weight (weighted vote) 
+        # of each learner
+        predictions = []
+        for i, x in enumerate(X):
+            prediction = 0
+            for k in range(len(self.learners)):
+                prediction += self.alpha[k]*self.learners[k].predict(
+                    x.reshape(1, -1))
 
-        return np.zeros(X.shape[0])
+            # Classify the sample as first class if sum is positive
+            # Classify the sample as the second class if the sum is negative
+            if prediction >= 0:
+                y = 1
+            else:
+                y = -1
+            predictions.append(y)
+
+        return predictions
     
     def score(self, X, y):
         """
@@ -121,9 +150,16 @@ class AdaBoost:
             Prediction accuracy (between 0.0 and 1.0).
         """
 
-        # TODO 
+        # Accuracy = total correct/total samples
+        num_samples = len(X)
+        num_correctly_predicted_samples = 0.0
+        predictions = self.predict(X)
 
-        return 0.0
+        for i, _ in enumerate(predictions):
+            if predictions[i] == y[i]:
+                num_correctly_predicted_samples += 1
+
+        return num_correctly_predicted_samples/num_samples
     
     def staged_score(self, X, y):
         """
@@ -139,9 +175,15 @@ class AdaBoost:
             [n_learners] ndarray of scores 
         """
 
-        # TODO 
+        # Each iteration has the addition of a weak learner
+        # First iteration 1 learner, 2nd iteration 2 learners
+        staged_scores = np.zeros(self.n_learners)
+        learners = self.learners
+        for k in range(self.n_learners):
+            self.learners = learners[:(k+1)]
+            staged_scores[k] = self.score(X, y)
 
-        return  np.zeros(self.n_learners)
+        return staged_scores
 
 
 def mnist_digit_show(flatimage, outname=None):
