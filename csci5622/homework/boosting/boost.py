@@ -82,6 +82,7 @@ class AdaBoost:
         w = np.full(y_train.shape[0], 1.0/y_train.shape[0])
 
         for k in range(self.n_learners):
+            print 'Fitting learner...', k
             h = clone(self.base)
 
             # Fit a weak learner to the training data
