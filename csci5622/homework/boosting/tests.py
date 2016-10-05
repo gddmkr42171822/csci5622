@@ -1,6 +1,9 @@
 import unittest
 from boost import AdaBoost
+from boost import FoursAndNines
 import numpy as np 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
 
 np.random.seed(1234)
 

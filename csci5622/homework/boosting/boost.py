@@ -78,7 +78,7 @@ class AdaBoost:
 
         # Initialize the weights so that they act like a probability
         # distribution.
-        w = np.full(len(y_train), 1.0/len(y_train))
+        w = np.full(y_train.shape[0], 1.0/y_train.shape[0])
 
         for k in range(self.n_learners):
             h = clone(self.base)
@@ -87,8 +87,8 @@ class AdaBoost:
             h.fit(X_train, y_train, sample_weight=w)
 
             # Compute the weighted error of the weak learner 
-            err = 0 
-            for i in range(len(w)):
+            err = 0.0 
+            for i in range(w.shape[0]):
                 err += w[i]*(y_train[i] != h.predict(
                     X_train[i].reshape(1, -1)))
             err = err/np.sum(w)
@@ -96,11 +96,12 @@ class AdaBoost:
             # Compute how good the weak learner is at prediction (weight)
             # Learners that make accurate predictions have higher weight
             # Small error = high alpha
+            if err == 0: err = 1
             self.alpha[k] = .5*math.log((1 - err)/err)
 
             # Re-compute the weights of the samples
             # Misclassified sample weight goes up 
-            for i in range(len(w)):
+            for i in range(w.shape[0]):
                 w[i] = w[i]*math.exp(
                     -self.alpha[k]*y_train[i]*h.predict(
                         X_train[i].reshape(1, -1)))
@@ -121,12 +122,12 @@ class AdaBoost:
 
         # For each sample sum up the prediction*weight (weighted vote) 
         # of each learner
-        predictions = []
-        for i, x in enumerate(X):
+        predictions = np.zeros(X.shape[0])
+        for i in range(X.shape[0]):
             prediction = 0
             for k in range(len(self.learners)):
                 prediction += self.alpha[k]*self.learners[k].predict(
-                    x.reshape(1, -1))
+                    X[i].reshape(1, -1))
 
             # Classify the sample as first class if sum is positive
             # Classify the sample as the second class if the sum is negative
@@ -134,7 +135,7 @@ class AdaBoost:
                 y = 1
             else:
                 y = -1
-            predictions.append(y)
+            predictions[i] = y
 
         return predictions
     
@@ -151,11 +152,11 @@ class AdaBoost:
         """
 
         # Accuracy = total correct/total samples
-        num_samples = len(X)
+        num_samples = X.shape[0]
         num_correctly_predicted_samples = 0.0
         predictions = self.predict(X)
 
-        for i, _ in enumerate(predictions):
+        for i in range(predictions.shape[0]):
             if predictions[i] == y[i]:
                 num_correctly_predicted_samples += 1
 
@@ -202,18 +203,29 @@ def mnist_digit_show(flatimage, outname=None):
 
 if __name__ == "__main__":
 
-	parser = argparse.ArgumentParser(description='AdaBoost classifier options')
-	parser.add_argument('--limit', type=int, default=-1,
+    parser = argparse.ArgumentParser(description='AdaBoost classifier options')
+    parser.add_argument('--limit', type=int, default=-1,
                         help="Restrict training to this many examples")
-	parser.add_argument('--n_learners', type=int, default=50,
+    parser.add_argument('--n_learners', type=int, default=50,
                         help="Number of weak learners to use in boosting")
-	args = parser.parse_args()
+    args = parser.parse_args()
 
-	data = FoursAndNines("../data/mnist.pkl.gz")
+    data = FoursAndNines("../data/mnist.pkl.gz")
 
     # An example of how your classifier might be called 
-	clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
-	clf.fit(data.x_train, data.y_train)
+    clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
+    clf.fit(data.x_train[:args.limit], data.y_train[:args.limit])
+
+    samples = data.x_valid[:5]
+    samples_class = data.y_valid[:5]
+
+    # A prediction of 1 means the digit is a 9
+    # A prediction of -1 means the digit is a 4
+    predictions = clf.predict(sample)
+    for i in range(predictions.shape[0]):
+        if predictions[i] == sample_class[i]:
+            print 'prediction is correct', sample_class[i]
+            mnist_digit_show(sample[i])
 
 
 
