@@ -88,11 +88,15 @@ class AdaBoost:
             # Fit a weak learner to the training data
             h.fit(X_train, y_train, sample_weight=w)
 
+            # Pre-compute the predictions of the training samples
+            predictions = np.zeros(w.shape[0])
+            for i in range(w.shape[0]):
+                predictions[i] = h.predict(X_train[i].reshape(1, -1))
+
             # Compute the weighted error of the weak learner 
             err = 0.0 
             for i in range(w.shape[0]):
-                err += w[i]*(y_train[i] != h.predict(
-                    X_train[i].reshape(1, -1)))
+                err += w[i]*(y_train[i] != predictions[i])
             err = err/np.sum(w)
 
             # Compute how good the weak learner is at prediction (weight)
@@ -108,11 +112,9 @@ class AdaBoost:
             # Misclassified sample weight goes up 
             for i in range(w.shape[0]):
                 w[i] = w[i]*math.exp(
-                    -self.alpha[k]*y_train[i]*h.predict(
-                        X_train[i].reshape(1, -1)))
+                    -self.alpha[k]*y_train[i]*predictions[i])
 
             self.learners.append(h)
-            
             
     def predict(self, X):
         """
@@ -186,6 +188,7 @@ class AdaBoost:
         staged_scores = np.zeros(self.n_learners)
         learners = self.learners
         for k in range(self.n_learners):
+            print 'Calculating staged score at iteration %d...' % k
             self.learners = learners[:(k+1)]
             staged_scores[k] = self.score(X, y)
 
