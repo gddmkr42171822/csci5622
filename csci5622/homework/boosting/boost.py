@@ -1,3 +1,8 @@
+"""
+Robert Werthman
+CSCI 5622
+Homework 4: Boosting
+"""
 import argparse
 import numpy as np 
 from sklearn.tree import DecisionTreeClassifier
@@ -82,7 +87,7 @@ class AdaBoost:
         w = np.full(y_train.shape[0], 1.0/y_train.shape[0])
 
         for k in range(self.n_learners):
-            print 'Fitting learner...', k
+            # print 'Fitting learner...', k
             h = clone(self.base)
 
             # Fit a weak learner to the training data
@@ -188,7 +193,7 @@ class AdaBoost:
         staged_scores = np.zeros(self.n_learners)
         learners = self.learners
         for k in range(self.n_learners):
-            print 'Calculating staged score at iteration %d...' % k
+            # print 'Calculating staged score at iteration %d...' % k
             self.learners = learners[:(k+1)]
             staged_scores[k] = self.score(X, y)
 
