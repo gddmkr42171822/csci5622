@@ -25,27 +25,28 @@
 | 09.26        | 7.1-7.3			     | 			   | Regression 			      		 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson10/lesson10.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LwR6IVtKAqSlzy4PjscOG1E)		|			| 
 | 09.28        | 7.4-7.5			     | 	[James 6.2](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Sixth%20Printing.pdf)		   | Regularization						 |[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson11/lesson11.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5Lwll_CxrMufMPNv6hH7g1Eg)		|			| 
 | 10.03        | [Mohri 2](https://moodle.cs.colorado.edu/pluginfile.php/2076/mod_resource/content/1/mohri_learn.pdf)			     | 			   | Learning Theory Part 1			     | [slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson12/lesson12.pdf)			|			| 
-| 10.05        | 			     | 			   | Learning Theory Part 2				 |			|			| 
+| 10.05        | [Mohri 3.2-3.3](https://moodle.cs.colorado.edu/pluginfile.php/2076/mod_resource/content/1/mohri_learn.pdf)			     | 			   | Learning Theory Part 2				 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson13/lesson13.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LwkHDDVrVrd2lrpq2VFLZgT)		|			| 
 | 10.07        | 			     | 			   | 	       						     |			| [Boosting](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/boosting/assign.md)	| 
-| 10.10        | 			     | 			   | 									 |			|			| 
-| 10.12        | 			     | 			   | 									 |			|			| 
-| 10.14        | 			     | 			   | 									 |			| Learnability		| 
+| 10.10        | 14.5.2.4	     | [Joachims](https://static.aminer.org/pdf/PDF/000/472/865/optimizing_search_engines_using_clickthrough_data.pdf), [Freund](http://jmlr.csail.mit.edu/papers/volume4/freund03a/freund03a.pdf)			   | Multiclass / Ranking		 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson14/lesson14.pdf)/[vids](https://www.youtube.com/playlist?list=PLnGW93UbO5LyD3ZbpbldUzj4Y_NOWlfL6)		|			| 
+| 10.12        | 			     | 			   | Feature Engineering				 |			|			| 
+| 10.14        | 			     | 			   | 									 |			| [Learnability](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/learnability/assign.md)		| 
 | 10.17        | 			     | 			   | Review								 |			|			| 
 | 10.19        | 			     | 			   | Midterm							 |			|			| 
 | 10.24        | 			     | 			   | 									 |			|			| 
 | 10.26        | 			     | 			   | 									 |			|			| 
-| 10.28        | 			     | 			   | 									 |			| Project Proposal		| 
+| 10.28        | 			     | 			   | 									 |			| Proposal Milestone		| 
 | 10.31        | 			     | 			   | 									 |			|			| 
 | 11.02        | 			     | 			   | 									 |			|			| 
 | 11.07        | 			     | 			   | 									 |			|			| 
 | 11.09        | 			     | 			   | 									 |			|			| 
 | 11.14        | 			     | 			   | 									 |			|			| 
 | 11.16        | 			     | 			   | 									 |			|			| 
+| 11.18        | 			     | 			   | 									 |			| Data Milestone		| 
 | 11.21        | 			     | 			   | Fall Break -- **NO CLASS**			 |			|			| 
 | 11.23        | 			     | 			   | Fall Break -- **NO CLASS**			 |			|			| 
 | 11.28        | 			     | 			   | 									 |			|			| 
 | 11.30        | 			     | 			   | 									 |			|			| 
-| 12.05        | 			     | 			   | 									 |			|			| 
+| 12.05        | 			     | 			   |  Guest Lecture  					 |			|			| 
 | 12.07        | 			     | 			   | 									 |			|    		| 
 | 12.09        | 			     | 			   | 									 |			| Project Due   		| 
 
