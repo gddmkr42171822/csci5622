@@ -30,6 +30,28 @@ m \ge \frac{1}{.15}(ln(1313400) + ln\frac{1}{.05}) \approx 114 \text{ training s
   }
 \centering
 \end{figure}
-The figure above is an example of a configuration of 2 points that are shattered by H.  Because this is the lowest number of points H can shatter, the $VCdim(H) \ge 2$. 
+The figure (a) is an example of a configuration of 2 points that are shattered by H.  Because this is the lowest number of points H can shatter, the $VCdim(H) \ge 2$.\\
+\\
+As for the upper bound on the VCdim I argue that it is 2 as well.  As depicted in figure (b), there is no way for a hyperplane to classify all labelings of two points when the point between the other two points is a different label.  This is true for all configurations of the points.
+\begin{figure}[H]
+\centering
+  \subfloat[Upper VC Dim bound example]{
+  \includegraphics[scale=.3]{p2_b.pdf}
+  }
+\centering
+\end{figure}
+\noindent
+In the case of 2 dimensions, the hyperplane (decision boundary) can be flattened into a line represented by the equation $y = wx$, where $w$ is the slope of the line.  The hypothesis class is then the set of all these equations for a line that classify $w$ points correctly.  Let us label points positive if they can be intersected by a line with slope $r \ge w$ and points negative if they can be intersected by a line with slope $r < w$.  This gives us the function for each hypothesis 
+\[
+  h(p = (x,y)) = 
+  \begin{cases}
+  +1 & \quad \text{if } r = \frac{y}{x} \ge w \\
+  -1 & \quad \text{if } r = \frac{y}{x} < w \\
+  \end{cases}
+\]
+\subsection*{Proof}
+We want to prove that for all configurations of the points there exists a labelling that cannot be shattered by the hypothesis class $H$.\\
+\\
+Let $p_1, p_2, p_3$ be points such that their y and x coordinates are ordered as $(x_1,y_1) \le (x_2,y_2) \le (x_3,y_3)$.  Let the class labels for each point be set to $p_1 = +1, p_2 = -1, p_3 = +1$.  Let $w$ be the slope of the hypothesis $h$.  Since $p_1 = +1$, the slope of $p_1$, $r_1$, must be $\ge w$.  Since $p_3 = +1$, the slope of $p_3$, $r_3$, must be $ \ge w$.  This would mean, based on the ordering of the coordinates above, that the slope of $p_2$, $r_2$, must also be $\ge w$.  But this contradicts the original labelling of $p_2$ as $-1$ which would mean $r_2 < w$.  This means that there is no hypothesis $h$ that can shatter a set of 3 points.  Therefore $VCdim < 3$ or $VCdim = 2$.
 
 \end{document}
