@@ -5,6 +5,7 @@ from vc_sin import train_sin_classifier
 
 class TestLearnability(unittest.TestCase):
 
+
     def test_vc_one_point_pos(self):
         data_pos = [(1, False)]
 

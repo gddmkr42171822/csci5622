@@ -39,7 +39,6 @@ class SinClassifier:
           k: The exponent in x = 2**(-k) (an integer)
         """
         assert isinstance(k, int), "Object to be classified must be an integer"
-
         if self(k) >= 0:
             return True
         else:
@@ -62,8 +61,12 @@ def train_sin_classifier(data):
 
     # TODO: Compute a parameter w that will correctly classify the dataset
 
-    w = 1.0 * pi  
+    w = 0.0
+    for k in data:
+        w += (1 - k[1])*(2**k[0]) 
+    w = pi*(1 + w) 
     return SinClassifier(w)
+
 
 if __name__ == "__main__":
     classifier = train_sin_classifier(kSIMPLE_TRAIN)

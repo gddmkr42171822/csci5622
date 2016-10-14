@@ -54,4 +54,9 @@ We want to prove that for all configurations of the points there exists a labell
 \\
 Let $p_1, p_2, p_3$ be points such that their y and x coordinates are ordered as $(x_1,y_1) \le (x_2,y_2) \le (x_3,y_3)$.  Let the class labels for each point be set to $p_1 = +1, p_2 = -1, p_3 = +1$.  Let $w$ be the slope of the hypothesis $h$.  Since $p_1 = +1$, the slope of $p_1$, $r_1$, must be $\ge w$.  Since $p_3 = +1$, the slope of $p_3$, $r_3$, must be $ \ge w$.  This would mean, based on the ordering of the coordinates above, that the slope of $p_2$, $r_2$, must also be $\ge w$.  But this contradicts the original labelling of $p_2$ as $-1$ which would mean $r_2 < w$.  This means that there is no hypothesis $h$ that can shatter a set of 3 points.  Therefore $VCdim < 3$ or $VCdim = 2$.
 
+\section*{Problem 3}
+We know the parameter $w$ must be a function of some characteristic of the training set, because it is able to--no matter what the training set looks like--shatter any number of training samples.  My solution technique was to guess and check and use resources from Google Search.  I had no methodical or logical way of finding the solution.\\
+\\
+For all negative labels you want $w$ to be the sum of the values $2^k$ where $k$ is the nonnegative integer for each of the negatively labelled training points.  You then want to add 1 to that sum and multiply it by $\pi$.  This gives you the correct value for $w$ to correctly shatter any configuration of points.  
+
 \end{document}
