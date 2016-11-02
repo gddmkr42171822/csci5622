@@ -1,3 +1,8 @@
+"""
+Robert Werthman
+CSCI 5622
+Homework 5: Learnability
+"""
 from math import pi, sin
 
 kSIMPLE_TRAIN = [(1, False), (2, True), (4, False), (5, True), (13, False),

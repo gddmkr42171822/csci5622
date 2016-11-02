@@ -31,17 +31,18 @@
 | 10.12        | 			     | 			   | Feature Engineering				 |			|			| 
 | 10.14        | 			     | 			   | 									 |			| [Learnability](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/learnability/assign.md)		| 
 | 10.17        | 			     | 			   | Review								 |			|			| 
-| 10.19        | 			     | 			   | Midterm							 |			|			| 
-| 10.24        | 			     | 			   | 									 |			|			| 
-| 10.26        | 			     | 			   | 									 |			|			| 
-| 10.28        | 			     | 			   | 									 |			| Proposal Milestone		| 
-| 10.31        | 			     | 			   | 									 |			|			| 
-| 11.02        | 			     | 			   | 									 |			|			| 
+| 10.19        | 			     | 			   | [Midterm](https://github.com/chrisketelsen/courses/blob/master/csci5622/exam/midterm_info.md)/[Solutions](https://piazza.com/colorado/fall2016/csci5622/resources)							 |			|			| 
+| 10.24        | [Neilsen 1](http://neuralnetworksanddeeplearning.com/chap1.html)			     | 			   | Neural Networks Part 1				 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson16/lesson16.pdf)		|			| 
+| 10.26        | [Neilsen 2](http://neuralnetworksanddeeplearning.com/chap2.html)			     | 			   | Neural Networks Part 2				 |	[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson17/lesson17.pdf)		|			| 
+| 10.28        | 			     | 			   | 									 |			| [Proposal](https://github.com/chrisketelsen/courses/blob/master/csci5622/project/assign.md)| 
+| 10.31        | 11.2.1-11.2.3, 11.4			     | | K-Means / GMMs | [vids](https://www.youtube.com/playlist?list=PLnGW93UbO5Lx06i__okotMXLbh7Nf165G)/[slides](http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson18/lesson18.pdf)								 |			|			 
+| 11.02        | [Luxburg](https://arxiv.org/pdf/0711.0189v1.pdf)			     | | Spectral Clustering									 |			|			| 
 | 11.07        | 			     | 			   | 									 |			|			| 
 | 11.09        | 			     | 			   | 									 |			|			| 
+| 11.01        | 			     | 			   | 									 |			| [Feature Engr.](https://github.com/chrisketelsen/courses/blob/master/csci5622/homework/feature_engineering/assign.md)			| 
 | 11.14        | 			     | 			   | 									 |			|			| 
 | 11.16        | 			     | 			   | 									 |			|			| 
-| 11.18        | 			     | 			   | 									 |			| Data Milestone		| 
+| 11.18        | 			     | 			   | 									 |			| [Data/Baseline](https://github.com/chrisketelsen/courses/blob/master/csci5622/project/assign.md) | 
 | 11.21        | 			     | 			   | Fall Break -- **NO CLASS**			 |			|			| 
 | 11.23        | 			     | 			   | Fall Break -- **NO CLASS**			 |			|			| 
 | 11.28        | 			     | 			   | 									 |			|			| 

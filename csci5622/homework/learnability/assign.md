@@ -19,7 +19,7 @@ are integers in the interval [0,99].  A concept c labels points on the interior 
 as positive and points on the exterior of the triangle as negative. 
 
 Give a bound on the number of randomly drawn training examples sufficient to assure that for any target class
-c in C, any consistent learner will, with probability 95%, output a hypothesis with error at most 0.15.  
+c in C, any consistent learner using H=C will, with probability 95%, output a hypothesis with error at most 0.15.  
 
 **Note**: To make life easier, we'll allow degenerate triangles in C.  That is, triangles where the vertices
 are collinear.  The following image depicts an example of a degenerate and nondegenerate triangle. 
@@ -50,10 +50,10 @@ Consider the case of classifying 1D points on the real line with the set of hypo
 
 <img src="figs/sin_h.png" width="400">
 
-For a given value of w, the hypothesis classifies points as positive if they lie on or above the sine curve 
-and negative if they lie below the sine curve. 
+For a given value of w, the hypothesis classifies points as positive if they lie on or below the sine curve 
+and negative if they lie above the sine curve. 
 
-<img src="figs/sine.png" width="900">
+<img src="figs/sine2.png" width="900">
 
 It turns out that the VC Dimension of this hypothesis class is infinite.  In other words, for **any** number
 of training examples there exists a configuration of points which can be shattered by the sine functions.  You will prove this fact by construction, by completing the code in *vc_sin.py* to determine the parameter
