@@ -21,6 +21,7 @@ from numpy import array
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
@@ -30,7 +31,7 @@ kTARGET_FIELD = 'spoiler'
 kTEXT_FIELD = 'sentence'
 
 
-class POSTokenizer(object):
+class POSCountTokenizer(object):
     def __call__(self, sentence):
         # Only tokenize the words and not punctuation.
         tokenizer = RegexpTokenizer('\w+')
@@ -102,8 +103,13 @@ if __name__ == "__main__":
 
     feat.show_top10(lr, labels)
 
-    # predictions = lr.predict(x_test)
-    print cross_val_score(lr, x_validation, y_validation, cv=5).mean()
+    predictions = lr.predict(x_validation)
+    print 'Cross validation score: ', cross_val_score(
+        lr, x_validation, y_validation, cv=5).mean()
+    # print accuracy_score(y_validation, predictions)
+    print '\t' + '\t'.join(labels)
+    for i, row in enumerate(confusion_matrix(y_validation, predictions)):
+        print labels[i] + '\t' + '\t'.join(str(column) for column in row)
 
     # o = DictWriter(open("predictions.csv", 'w'), ["id", "spoiler"])
     # o.writeheader()
