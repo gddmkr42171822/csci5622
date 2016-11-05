@@ -1,3 +1,18 @@
+"""
+Baseline score: 0.63821
+5% over baseline score: .67
+10% over baseline score: .70
+
+With bigrams also in the features:
+Score: 0.64499
+
+With the counts of parts of speech of only words in the sentence:
+Score: 0.53117
+
+With the counts of parts of speech with everything in the sentence:
+Score: 0.52710
+"""
+
 from csv import DictReader, DictWriter
 
 import numpy as np
@@ -5,14 +20,34 @@ from numpy import array
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import SGDClassifier
+from sklearn.model_selection import cross_val_score
+
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import RegexpTokenizer
+from nltk.tag import pos_tag
 
 kTARGET_FIELD = 'spoiler'
 kTEXT_FIELD = 'sentence'
 
 
+class POSTokenizer(object):
+    def __call__(self, sentence):
+        # Only tokenize the words and not punctuation.
+        tokenizer = RegexpTokenizer('\w+')
+        words = tokenizer.tokenize(sentence)
+        words_and_pos_tags = pos_tag(words)
+        # Return a list of the part of speech for each word in the sentence.
+        return [word_and_pos[1] for word_and_pos in words_and_pos_tags]
+
+
 class Featurizer:
     def __init__(self):
+        # Vectorizing by unigram word count.
         self.vectorizer = CountVectorizer()
+        # Vectorizing with bi-grams.
+        # self.vectorizer = CountVectorizer(ngram_range=(1,2))
+        # Vectorizing with part of speech count.
+        # self.vectorizer = CountVectorizer(tokenizer=POSTokenizer())
 
     def train_feature(self, examples):
         return self.vectorizer.fit_transform(examples)
@@ -37,10 +72,11 @@ if __name__ == "__main__":
     # Cast to list to keep it all in memory
     train = list(DictReader(open("../data/spoilers/train.csv", 'r')))
     test = list(DictReader(open("../data/spoilers/test.csv", 'r')))
+    validation = list(DictReader(open("../data/spoilers/validation.csv", 'r')))
 
     feat = Featurizer()
-
     labels = []
+    
     for line in train:
         if not line[kTARGET_FIELD] in labels:
             labels.append(line[kTARGET_FIELD])
@@ -52,6 +88,11 @@ if __name__ == "__main__":
     y_train = array(list(labels.index(x[kTARGET_FIELD])
                          for x in train))
 
+    y_validation = array(list(labels.index(x[kTARGET_FIELD])
+                         for x in validation))
+
+    x_validation = feat.test_feature(x[kTEXT_FIELD] for x in validation)
+
     print(len(train), len(y_train))
     print(set(y_train))
 
@@ -61,9 +102,11 @@ if __name__ == "__main__":
 
     feat.show_top10(lr, labels)
 
-    predictions = lr.predict(x_test)
-    o = DictWriter(open("predictions.csv", 'w'), ["id", "spoiler"])
-    o.writeheader()
-    for ii, pp in zip([x['id'] for x in test], predictions):
-        d = {'id': ii, 'spoiler': labels[pp]}
-        o.writerow(d)
+    # predictions = lr.predict(x_test)
+    print cross_val_score(lr, x_validation, y_validation, cv=5).mean()
+
+    # o = DictWriter(open("predictions.csv", 'w'), ["id", "spoiler"])
+    # o.writeheader()
+    # for ii, pp in zip([x['id'] for x in test], predictions):
+    #     d = {'id': ii, 'spoiler': labels[pp]}
+    #     o.writerow(d)
