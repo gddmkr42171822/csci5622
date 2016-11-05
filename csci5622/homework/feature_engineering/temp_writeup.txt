@@ -2,6 +2,6 @@ Temp Writeup
 
 The baseline feature extractor tokenizes a sentence and creates a matrix where each row is corresponds to the a sentence and the column corresponds to the number of words in the sentence.  The number of columns is equal to the number of words in the vocabulary of all the sentences.  Each sentence becomes a vector of the number of words it contains from the vocabulary.
 
-Using bi-grams increased the score by 1 point.  Bi-grams increased the number of features that could be extracted from each sentence.  For example if we had the sentence "Bi-grams are cool!" instead of the vector ["bi", "grams", "are" "cool"] we would have the vector ["bi", "grams", "are", "cool", "bi grams", "grams are", "are cool"]. 
+Using n-grams increased the score by quite a bit.  n-grams increased the number of features that could be extracted from each sentence.  For example if we had the sentence "Bi-grams are cool!" with n = 2 instead of the vector ["bi", "grams", "are" "cool"] we would have the vector ["bi", "grams", "are", "cool", "bi grams", "grams are", "are cool"]. 
 
-Using part of speech tagging I tokenized the sentence into parts of speech and then each feature vector became a count of the parts of speech in the sentence.
+Using part of speech tagging I tokenized the sentence into parts of speech and then each feature vector became a count of the parts of speech in the sentence.  This produced a score of 0.53117.  I also tokenized the sentence into a string of the word and part of speech.  This produced a score of 0.49593.
