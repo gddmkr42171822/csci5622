@@ -1,4 +1,9 @@
 """
+Robert Werthman 
+Username: rowe7280 
+CSCI 5622
+Feature Engineering
+
 Baseline score: 0.63821
 5% over baseline score: .67
 10% over baseline score: .70
@@ -27,6 +32,7 @@ from numpy import array
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score, confusion_matrix
@@ -85,10 +91,7 @@ def SentenceLength(text):
 class Featurizer:
     def __init__(self): 
         # Vectorizing by 4-gram word count.
-        self.vectorizer = CountVectorizer(
-            tokenizer=LemmaTokenizer(),
-            ngram_range=(1,8),
-            preprocessor=KeepWordsAndSpaces)
+        # self.vectorizer = CountVectorizer(ngram_range=(1,4))
 
         # Vectorizing with the count of the part of speech in the sentence.
         # self.vectorizer = CountVectorizer(
@@ -103,19 +106,14 @@ class Featurizer:
         #     ngram_range=(1,8))
 
         # Using a TfidfVectorizer instead of a CountVectorizer.
-        # self.vectorizer = TfidfVectorizer(
-        #     tokenizer=StemmerTokenizer(),
-        #     ngram_range=(1,4),
-        #     preprocessor=KeepWordsAndSpaces)
+        self.vectorizer = TfidfVectorizer(use_idf=False)
 
         # Using sentence length as the feature
         # self.vectorizer = CountVectorizer(
         #     analyzer=SentenceLength)
 
     def train_feature(self, examples):
-        X = self.vectorizer.fit_transform(examples)
-        # print X.toarray()
-        return X
+        return self.vectorizer.fit_transform(examples)
 
     def test_feature(self, examples):
         return self.vectorizer.transform(examples)
@@ -123,8 +121,8 @@ class Featurizer:
     def show_top10(self, classifier, categories):
         feature_names = np.asarray(self.vectorizer.get_feature_names())
 
-        for feature in feature_names:
-            print feature
+        # for feature in feature_names:
+        #     print feature
 
         # if len(categories) == 2:
         #     top10 = np.argsort(classifier.coef_[0])[-10:]
@@ -162,17 +160,26 @@ if __name__ == "__main__":
 
     x_validation = feat.test_feature(x[kTEXT_FIELD] for x in validation)
 
-    print(len(train), len(y_train))
-    print(set(y_train))
+    # print(len(train), len(y_train))
+    # print(set(y_train))
 
     # Train classifier
     lr = SGDClassifier(loss='log', penalty='l2', shuffle=True)
     lr.fit(x_train, y_train)
 
-    feat.show_top10(lr, labels)
+    # feat.show_top10(lr, labels)
 
     predictions = lr.predict(x_test)
     print 'Accuracy', accuracy_score(y_validation, predictions)
+
+    # test_samples = open('test_samples.txt', 'w')
+    # validation_samples = open('validation_samples.txt', 'w')
+
+    # test = [x[kTEXT_FIELD] for x in test]
+    # validation = [x[kTEXT_FIELD] for x in validation]
+    # for x, y in zip(test, validation):
+    #     test_samples.write(x+'\n')
+    #     validation_samples.write(y+'\n')
 
     # if predictions[i] != y_validation[i]:
     #     print '%d labelled incorrectly.  Should be %r instead of %r' % (i, y_validation[i], predictions[i])
